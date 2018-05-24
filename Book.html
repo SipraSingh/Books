@@ -1,0 +1,202 @@
+<html lang="en">
+<head>
+  <title>BookStoreApp</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="js/form-validation.js"></script>
+  </head>
+  <script type="text/javascript">
+  $(function() {
+  $("form[name='myForm']").validate({
+  rules: {
+	 rate: "required",
+	 rate1:"required",
+	 email: {
+        required: true,     
+        email: true
+      },
+	  email1: {
+        required: true,     
+        email: true
+      }
+	  },
+	  messages: {
+	  
+	    email: "Enter a valid Email Id",
+		email1: "Enter a valid Email Id"
+	  },
+	  submitHandler: function(form) {
+      form.submit();
+	  form.submit1();
+    }
+  });
+});
+  </script>
+  <script>
+  var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+ $scope.products= ["Star:4","must read","ammu@gmail.com","Star:5","Another Gem from Dan Brown","swathi@gmail.com"];
+ $scope.product= [];
+ $scope.product1=["Star:3","Nice","mannu@yahoo.com"];
+  $scope.addItem = function () {
+        $scope.product.push($scope.rate);
+		 $scope.product.push($scope.myName);
+		  $scope.product.push($scope.addMe);	
+    }   
+$scope.addItem1 = function () {
+        $scope.product1.push($scope.rate1);
+		 $scope.product1.push($scope.comment1);
+		  $scope.product1.push($scope.email1);	
+    }   
+     $scope.showMe1 = true;
+	 $scope.showMe = false;
+$scope.added = function () {
+  $scope.showMe = !$scope.showMe;
+  $scope.showMe1 =  false;
+  
+}
+	
+});
+</script>
+  <style>
+  form .error {
+  color: #ff0000;
+}
+  </style>
+  <body ng-app="myApp" ng-controller="myCtrl">
+  <form name="myForm">
+  <div class="container-fluid">	
+  <div class="row"></br>
+	<div class="col-sm-5">
+	<p><b><h3>INFERNO</h3></b></P></br>
+	<p><b><h5>Mystery thriller by Dan Brown</h5></b></P></br>
+  <img src="https://www.florenceinferno.com/wp-content/uploads/2016/06/Inferno-by-Dan-Brown-840x1024.jpg" alt="Los Angeles" style="width:25%;"></br></br>
+  <ul class="nav nav-pills">
+    <li><a data-toggle="pill" href="#menu1">Description</a></li>
+    <li><a data-toggle="pill" href="#menu2">Specifications</a></li>
+    <li><a data-toggle="pill" href="#menu3">Reviews</a></li>
+  </ul>
+  
+  <div class="tab-content">
+    <div id="menu1" class="tab-pane fade">
+      <h3>Description</h3>
+      <h5><p>Mystery thriller by Dan Brown</p>
+		<b>Originally published</b>: May 14, 2013</br>
+		<b>Author</b>: Dan Brown</br>
+		<b>Publisher</b>: Doubleday</br>
+		<b>Preceded by</b>: The Lost Symbol</br>
+		<b>Followed by</b>: Origin</br>
+		<b>Genres</b>: Mystery, Conspiracy fiction, Thriller</br></h5>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Specifications</h3>
+      <p>Inferno is a 2013 mystery thriller novel by American author Dan Brown and the fourth book in his Robert Langdon series, following Angels & Demons, The Da Vinci Code and The Lost Symbol. The book was published on May 14, 2013, ten years after publication of The Da Vinci Code (2003), by Doubleday. </p>
+    </div>
+    <div id="menu3" class="tab-pane fade">
+      <h3>Reviews</h3>
+	  <ul style="list-style-type:none">
+	   <i><li style="color:green" ng-repeat="x in products">{{x}}</li></i></br>
+	   <i><li style="color:green" ng-repeat="y in product">{{y}}</li></i></br>
+      </ul>
+	  <label for="ex2">Rate The Book</label>
+      <select ng-model="rate"  name="rate" title="Select Rating" required>
+	  <span style="color:red" ng-show="myForm.rate.$touched && myForm.rate.$invalid"></span>
+          <option value=""></option>
+		  <option value="Star:1">Star 1 </option>
+          <option value="Star:2">Star 2 </option>
+		  <option value="Star:3">Star 3 </option>
+		  <option value="Star:4">Star 4 </option>
+		  <option value="Star:5">Star 5 </option>
+        </select>
+		<div class="form-group">
+  <label for="comment">Comment:</label>
+  <textarea class="form-control" rows="5" name="myName" ng-model="myName"  required placeholder="Write a short review of the book"></textarea>
+  <span style="color:red" ng-show="myForm.myName.$touched && myForm.myName.$invalid"></span>
+   </div>
+		<input class="form-control"  name="email" id="email" type="text" ng-model="addMe" placeholder="Enter your Email id"/>
+		<span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">Enter Valid Email id
+		</span></br>
+		<button type="submit"  ng-disabled="myForm.myName.$dirty && myForm.myName.$invalid ||  
+		myForm.email.$dirty && myForm.email.$invalid " class="btn btn-primary" name="submit"  ng-click="addItem()"><b>Submit Review</b></button>
+		</div>
+		</div>
+		</div></br></br></br></br></br>
+		<div class="col-sm-6">
+		</div>
+		<div class="col-sm-1">
+		<label for="ex3"><h3><i><b><span>&#8377;</span>550.00</b></i></h3></label>
+		</div>
+		</div></br></br>
+	<div class="row">
+    <div class="col-sm-12">	
+		<div class="panel panel-default">
+  <div class="panel-heading"></div>
+  </div>
+    </div>
+	</div>
+	<div class="row">
+	<div class="col-sm-5">
+	<p><b><h3>THE KRISHNA KEY</h3></b></P></br>
+	<p><b><h5>Anthropological thriller by Ashwin Sanghi</h5></b></P></br>
+  <img src="https://upload.wikimedia.org/wikipedia/en/6/65/The_Krishna_Key_Cover_Art.jpg" alt="Los Angeles" style="width:25%;"></br></br>
+   <div ng-show="showMe"><h4><b><i style="color:green">Saved to Cart Successfully</i></b></h4></div>
+   <div ng-show="showMe1"><button type="submit" class="btn btn-primary" name="submit" ng-click="added()" id="submit"><b>Add to Cart</b></button></div></br>
+   <ul class="nav nav-pills">
+    <li><a data-toggle="pill" href="#menu4">Description</a></li>
+    <li><a data-toggle="pill" href="#menu5">Specifications</a></li>
+    <li><a data-toggle="pill" href="#menu6">Reviews</a></li>
+  </ul>
+  
+  <div class="tab-content">
+    <div id="menu4" class="tab-pane fade">
+      <h3>Description</h3>
+      <h5><p>Originally published: 2012</p>	
+			<b>Author</b>: Ashwin Sanghi</br>
+			<b>Country</b>: India</br>
+			<b>Preceded by</b>: Chanakya's Chant</br>
+			<b>Pages</b>: 475 pp (first edition, paperback)</br>
+			<b>Genres</b>: Fiction, Thriller, Mystery, Crime Fiction</br>
+    </div>
+    <div id="menu5" class="tab-pane fade">
+      <h3>Specifications</h3>
+      <p>The Krishna Key is a 2012 anthropological thriller by Indian author Ashwin Sanghi and is his third novel. The book follows a history professor who has to prove his innocence against a murder charge. </div>
+    <div id="menu6" class="tab-pane fade">
+      <h3>Reviews</h3>
+	  <ul style="list-style-type:none">
+	   <i><li style="color:green" ng-repeat="z in product1">{{z}}</li></i></br></ul>
+	  <label for="ex2">Rate The Book</label>
+      <select ng-model="rate1" name="rate1" id="rate1" title="Select Rating">
+          <option value=""></option>
+		  <option value="rate1">1 Star</option>
+          <option value="rate2">2 Star</option>
+		  <option value="rate3">3 Star</option>
+		  <option value="rate4">4 Star</option>
+		  <option value="rate5">5 Star</option>
+        </select>
+		<div class="form-group">
+  <label for="comment">Comment:</label>
+  <textarea class="form-control" rows="5" ng-model="comment1" name="comment1" id="comment1" required  placeholder="Write a short review of the book"></textarea>
+   </div>
+		<input class="form-control"  ng-model="email1" id="email1" name="email1" type="text" placeholder="Enter your Email id"/>
+		</br>
+		<button type="submit1" ng-disabled="myForm.email1.$dirty && myForm.email1.$invalid ||  
+		myForm.comment1.$dirty && myForm.comment1.$invalid" class="btn btn-primary" name="submit1" id="submit1" ng-click="addItem1()" class="btn btn-primary"><b>Submit Review</b></button>
+		</div>
+		</div>
+		</div></br></br></br></br></br>
+	<div class="col-sm-6">
+		</div>
+		<div class="col-sm-1">
+		<label for="ex3"><h3><i><b><span>&#8377;</span>230.00</b></i></h3></label>
+		</div>
+	</div>
+	</div>
+	</form>
+	</body>
+	</html>
